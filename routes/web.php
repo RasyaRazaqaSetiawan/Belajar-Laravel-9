@@ -1,8 +1,14 @@
 <?php
 
 use App\Models\Barang;
+use App\Models\Transaksi;
+use App\Models\pembeli;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Models\Siswa;
+use App\Models\Pengguna;
+use App\Models\Telepon;
+use App\Models\Produk;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +26,7 @@ Route::get('/', function () {
 });
 
 // route dasar (Basic)
-Route::get('/about', function () {
+Route::get('/tentang', function () {
     return '<h1>Halo</h1>'
         . '<h3>YIPEEEEEEEEEEEE</h3>'
         . 'selamat datang di webapp saya<br>'
@@ -106,12 +112,70 @@ Route::get('myname/{nama}', function ($a = "abdu") {
 
 // Menampilkan data dari datbase dari laravel
 Route::get('/testmodel', function () {
-    $data = Post::all();
-    return $data;
+    $post = Post::all();
+    return view("tampil_post", compact('post'));
 });
 
 // Menampilkan table barang
 Route::get('/testbarang', function () {
-    $data = Barang::all();
-    return $data;
+    $barang = Barang::all();
+    return view("tampil_barang", compact('barang'));
+    // return $data;
+});
+
+// Menampilkan table siswa
+Route::get('/testsiswa', function () {
+    $siswa = Siswa::all();
+    //$data::all();
+    //$data::find(2);
+    // $siswa = Siswa::where('jenis_kelamin', 'like', '%perempuan%')->get();
+    // return $data;
+
+    /* tambah siswa
+    $siswa = new Siswa;
+    $siswa-> nama = "Teddy";
+    $siswa-> jenis_kelamin = "Laki Laki";
+    $siswa-> alamat = "Rancamanyar";
+    $siswa-> agama = "Kristen";
+    $siswa-> telepon = "081290198432";
+    $siswa-> email = "Teddy@gmail.com";
+
+    $siswa->save();
+*/
+
+    return view('tampil_siswa', compact('siswa'));
+});
+
+// Menampilkan table pengguna
+Route::get('/testpengguna', function () {
+    $pengguna = Pengguna::all();
+    return view("tampil_pengguna", compact('pengguna'));
+    // return $data;
+});
+
+// Menampilkan table telepon
+Route::get('/telepon', function () {
+    $telepon = Telepon::all();
+    return view("tampil_telepon", compact('telepon'));
+    // return $data;
+});
+
+// Menampilkan table telepon
+Route::get('/produk', function () {
+    $produk = Produk::all();
+    return view("tampil_produk", compact('produk'));
+    // return $data;
+});
+
+// menampilkan table transaksi
+Route::get('/transaksi', function(){
+    $transaksi = Transaksi::all();
+    return view("tampil_transaksi", compact('transaksi'));
+});
+
+// Laravel view
+Route::get('/about', function () {
+    return view('about');
+    //App\Post::all();
+    //App\Post::find(1);
 });
