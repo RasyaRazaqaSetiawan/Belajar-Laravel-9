@@ -179,6 +179,12 @@ Route::get('/template', function(){
     return view('template', compact('post'));
 });
 
+// belajar slicing laravel
+Route::get('/template2', function(){
+    $produk = Produk::all();
+    return view('template2', compact('produk'));
+});
+
 // Laravel view
 Route::get('/about', function () {
     return view('about');
