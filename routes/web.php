@@ -2,7 +2,6 @@
 
 use App\Models\Barang;
 use App\Models\Transaksi;
-use App\Models\pembeli;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Siswa;
@@ -103,7 +102,6 @@ Route::get('keterangan/{name}/{berat}/{tinggi}', function ($name, $berat, $tingg
         . "Hasil BMI: $bmi <br>"
         . "Keterangan: <b>$ket</b><br>";
 });
-// Done Coy
 
 // Route Optional Paramater
 Route::get('myname/{nama}', function ($a = "abdu") {
@@ -126,12 +124,14 @@ Route::get('/testbarang', function () {
 // Menampilkan table siswa
 Route::get('/testsiswa', function () {
     $siswa = Siswa::all();
+
+// command untuk menampilkan tabel
     //$data::all();
     //$data::find(2);
     // $siswa = Siswa::where('jenis_kelamin', 'like', '%perempuan%')->get();
     // return $data;
 
-    /* tambah siswa
+    /* tambah table di routes
     $siswa = new Siswa;
     $siswa-> nama = "Teddy";
     $siswa-> jenis_kelamin = "Laki Laki";
@@ -171,6 +171,12 @@ Route::get('/produk', function () {
 Route::get('/transaksi', function(){
     $transaksi = Transaksi::all();
     return view("tampil_transaksi", compact('transaksi'));
+});
+
+// belajar slicing laravel
+Route::get('/template', function(){
+    $post = Post::all();
+    return view('template', compact('post'));
 });
 
 // Laravel view
