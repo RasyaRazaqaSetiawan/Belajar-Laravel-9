@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProdukController;
 use App\Models\Barang;
 use App\Models\Transaksi;
 use Illuminate\Support\Facades\Route;
@@ -8,6 +9,8 @@ use App\Models\Siswa;
 use App\Models\Pengguna;
 use App\Models\Telepon;
 use App\Models\Produk;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\MerekController;
 
 /*
 |--------------------------------------------------------------------------
@@ -125,7 +128,7 @@ Route::get('/testbarang', function () {
 Route::get('/testsiswa', function () {
     $siswa = Siswa::all();
 
-// command untuk menampilkan tabel
+    // command untuk menampilkan tabel
     //$data::all();
     //$data::find(2);
     // $siswa = Siswa::where('jenis_kelamin', 'like', '%perempuan%')->get();
@@ -160,30 +163,30 @@ Route::get('/telepon', function () {
     // return $data;
 });
 
-// Menampilkan table telepon
-Route::get('/produk', function () {
+// Menampilkan table produk
+Route::get('/stuff', function () {
     $produk = Produk::all();
     return view("tampil_produk", compact('produk'));
     // return $data;
 });
 
 // menampilkan table transaksi
-Route::get('/transaksi', function(){
+Route::get('/transaksi', function () {
     $transaksi = Transaksi::all();
     return view("tampil_transaksi", compact('transaksi'));
 });
 
-// belajar slicing laravel
-Route::get('/template', function(){
-    $post = Post::all();
-    return view('template', compact('post'));
-});
+// belajar slicing laravel dan controlller
+Route::get('post/', [PostController::class, 'menampilkan']);
+Route::get('post/{id}', [PostController::class, 'show'])->name('template.show');
 
 // belajar slicing laravel
-Route::get('/template2', function(){
-    $produk = Produk::all();
-    return view('template2', compact('produk'));
-});
+Route::get('produks', [ProdukController::class, 'tampil']);
+Route::get('produk/{id}', [ProdukController::class, 'show'])->name('template2.show');
+
+// belajar slicing laravel
+Route::get('mereks', [MerekController::class, 'see']);
+Route::get('merek/{id}', [MerekController::class, 'show'])->name('merek.show');
 
 // Laravel view
 Route::get('/about', function () {

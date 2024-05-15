@@ -21,7 +21,7 @@
         <div class="container">
             {{-- row 1 --}}
             <div class="row mt-5 justify-content-center">
-                    <h3>List Artikel</h3>
+                <h3>List Artikel</h3>
             </div>
             {{-- row 2 --}}
             <div class="row mt-5">
@@ -33,8 +33,9 @@
                                 class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $data->title }}</h5>
-                                <p class="card-text">{{ $data->content }}</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <p><b>Robbi hablii milladunka zaujan thoyyiban, wayakuuna shoohiban, lii fiddiini waddunyaa wal aakhiroh. Artinya: “Ya Robb, berikanlah kepadaku suami yang terbaik dari sisi-Mu, suami yang juga menjadi sahabatku dalam urusan agama, urusan dunia dan akhirat.”</b></p>
+                                {{-- <p class="card-text">{{ $data->content }}</p> --}}
+                                <a href="{{route ('template.show', ['id' => $data->id])}}" class="btn btn-primary">Go somewhere</a>
                             </div>
                         </div>
                     </div>
