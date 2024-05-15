@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProdukController;
 use App\Models\Barang;
 use App\Models\Transaksi;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +8,9 @@ use App\Models\Siswa;
 use App\Models\Pengguna;
 use App\Models\Telepon;
 use App\Models\Produk;
+
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\MerekController;
 
@@ -194,3 +196,9 @@ Route::get('/about', function () {
     //App\Post::all();
     //App\Post::find(1);
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('brand', BrandController::class);
