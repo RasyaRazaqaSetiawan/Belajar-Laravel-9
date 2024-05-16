@@ -11,4 +11,9 @@ class brand extends Model
     protected $filetable = ['id', 'name_brand'];
     // protected $table = ['penggunas']; seluruh table pengguna
     public $timestamps = true;
+
+    public function product()
+    {
+        return $this->hasMany(product::class, 'id_brand');
+    }
 }
