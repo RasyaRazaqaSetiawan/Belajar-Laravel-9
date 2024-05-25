@@ -6,15 +6,15 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Data Product') }}</div>
-                    @if(session('success'))
-                    <div class="alert alert-success fade show" role="alert">
-                        {{ session('success') }}
-                    </div>
-                    @endif
 
                     <div class="card-body">
                         <a href="{{ route('product.create') }}" class="btn btn-primary">Add data</a>
                         <table class="table">
+                            @if(session('success'))
+                            <div class="alert alert-success fade show" role="alert">
+                                {{ session('success') }}
+                            </div>
+                            @endif
                             <thead class="table-secondary">
                                 <tr>
                                     <th scope="col">No</th>
@@ -22,6 +22,8 @@
                                     <th scope="col">Price</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">Name Brand</th>
+                                    <th scope="col">Cover</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,13 +36,21 @@
                                         <td>{{ $data->price }}</td>
                                         <td>{{ $data->description }}</td>
                                         <td>{{ $data->brand->name_brand }}</td>
+                                        <td>
+                                            <img src="{{ asset('images/product/' . $data->cover) }}" width="100"
+                                            alt="">
+                                        {{-- img src = "{{asset('storage/'. $data->cover)}}"100 --}}
+                                        {{-- $data->cover --}}
+                                        </td>
                                         <form action="{{route('product.destroy', $data->id)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <td>
                                             <a href="{{ route('product.edit', $data->id) }}" class="btn btn-success">Edit</a>
                                             <a href="{{ route('product.show', $data->id) }}" class="btn btn-warning">Show</a>
-                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <button type="submit" class="btn btn-danger"
+                                            onclick="return confirm('Apakah Anda Yakin ingin menghapus data ini?')">
+                                                Delete</button>
                                         </td>
                                     </form>
                                     </tr>

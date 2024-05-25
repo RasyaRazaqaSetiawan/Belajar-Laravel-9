@@ -9,7 +9,7 @@ class product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'name_product', 'price', 'description', 'id_brand'];
+    protected $fillable = ['id', 'name_product', 'price', 'description', 'id_brand', 'cover'];
 
     public $timestamps = true;
 
@@ -19,5 +19,12 @@ class product extends Model
         return $this->belongsTo(Brand::class, 'id_brand');
     }
 
+    // menghapus cover
+    public function deleteImage()
+    {
+        if($this->cover && file_exists(public_path('images/product' . $this->cover))){
+            return unlink(public_path('images/product' . $this->cover));
+        }
+    }
 }
 

@@ -12,6 +12,10 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $brand = Brand::all();
@@ -39,7 +43,8 @@ class BrandController extends Controller
         $brand = new Brand;
         $brand->name_brand = $request->input('name_brand');
         $brand->save();
-        return redirect()->route('brand.index');
+        return redirect()->route('brand.index')
+        ->with('success', 'data berhasil ditambahkan');
     }
 
 
@@ -79,7 +84,8 @@ class BrandController extends Controller
         $brand = Brand::findOrFail($id);
         $brand->name_brand = $request->name_brand;
         $brand->save();
-        return redirect()->route('brand.index');
+        return redirect()->route('brand.index')
+        ->with('success', 'data berhasil diubah');
     }
 
     /**

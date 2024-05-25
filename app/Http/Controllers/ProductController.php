@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\brand;
+
 use App\Models\product;
 use Illuminate\Http\Request;
 
@@ -25,7 +27,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $brand = Brand::all();
+        return view('products.create', compact('brand'));
     }
 
     /**
@@ -41,11 +44,18 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->description = $request->description;
         $product->id_brand = $request->id_brand;
-        $product->save();
-        return redirect()->route('product.index')
-        ->with('success', 'data berhasil ditambahkan');
 
+        // update img
+        if ($request->hasFile('cover')) {
+            $img = $request->file('cover');
+            $name = rand(1000, 9999) . $img->getClientOriginalName();
+            $img->move('images/product', $name);
+            $product->cover = $name;
+        }
+        $product->save();
+        return redirect()->route('product.index')->with('success', 'Data berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.
@@ -68,9 +78,10 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        return view('products.edit', compact('product'));
-
+        $brand = Brand::all();
+        return view('products.edit', compact('product', 'brand'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -86,10 +97,19 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->description = $request->description;
         $product->id_brand = $request->id_brand;
+
+        // delete img
+        if ($request->hasFile('cover')) {
+            $product->deleteImage();
+            $img = $request->file('cover');
+            $name = rand(1000, 9999) . $img->getClientOriginalName();
+            $img->move('images/product', $name);
+            $product->cover = $name;
+        }
+
         $product->save();
         return redirect()->route('product.index')
-        ->with('success', 'data berhasil di ubah');
-;
+            ->with('success', 'data berhasil di ubah');
     }
 
     /**
@@ -103,6 +123,6 @@ class ProductController extends Controller
         $product = product::findOrFail($id);
         $product->delete();
         return redirect()->route(('product.index'))
-        ->with('success', 'data berhasil di hapus');;
+            ->with('success', 'data berhasil di hapus');
     }
 }

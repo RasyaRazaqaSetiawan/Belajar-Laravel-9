@@ -204,3 +204,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('brand', BrandController::class);
 Route::resource('product', ProductController::class);
+
